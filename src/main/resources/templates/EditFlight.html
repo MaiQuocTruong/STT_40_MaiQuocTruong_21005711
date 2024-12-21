@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Flight</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>STT40 - MaiQuocTruong - 21005711 </h1>
+        <h2>Edit Flight</h2>
+        
+        <div th:if="${errorMessage != null}" class="alert alert-danger">
+            <strong>Error:</strong> <span th:text="${errorMessage}"></span>
+        </div>
+
+        <form th:action="@{/flight/update/{id}(id=${updateFlight.id})}" th:object="${updateFlight}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="airplaneName">Airplane name:</label>
+                <input type="text" class="form-control" id="airplaneName" th:field="*{airplaneName}" placeholder="Enter airplane name">
+                <div th:if="${#fields.hasErrors('airplaneName')}" class="text-danger">
+                    <span th:errors="*{airplaneName}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="departureAirport">Departure airport:</label>
+                <input type="text" class="form-control" id="departureAirport" th:field="*{departureAirport}" placeholder="Enter departure airport">
+                <div th:if="${#fields.hasErrors('departureAirport')}" class="text-danger">
+                    <span th:errors="*{departureAirport}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="arrivalAirport">Arrival airport:</label>
+                <input type="text" class="form-control" id="arrivalAirport" th:field="*{arrivalAirport}" placeholder="Enter arrival airport">
+                <div th:if="${#fields.hasErrors('arrivalAirport')}" class="text-danger">
+                    <span th:errors="*{arrivalAirport}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="departureDate">Departure date:</label>
+                <input type="date" class="form-control" id="departureDate" th:field="*{departureDate}">
+                <div th:if="${#fields.hasErrors('departureDate')}" class="text-danger">
+                    <span th:errors="*{departureDate}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="arrivalDate">Arrival date:</label>
+                <input type="date" class="form-control" id="arrivalDate" th:field="*{arrivalDate}">
+                <div th:if="${#fields.hasErrors('arrivalDate')}" class="text-danger">
+                    <span th:errors="*{arrivalDate}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="seatFare">Seat fare:</label>
+                <input type="number" class="form-control" id="seatFare" th:field="*{seatFare}">
+                <div th:if="${#fields.hasErrors('seatFare')}" class="text-danger">
+                    <span th:errors="*{seatFare}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="flightStatus">Flight Status</label>
+                <select class="form-control" id="flightStatus" th:field="*{flightStatus}" required>
+                    <option value="true" th:selected="${updateFlight.flightStatus} == true">New</option>
+                    <option value="false" th:selected="${updateFlight.flightStatus} == false">Scheduled</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Flight</button>
+            <a href="/flight" class="btn btn-primary">Back</a>
+        </form>
+    </div>
+</body>
+</html>

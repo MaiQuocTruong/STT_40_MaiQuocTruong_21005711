@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Flight</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+      img {
+        max-width: 100px;
+        max-height: 100px;
+        object-fit: cover;
+      }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>STT40 - MaiQuocTruong - 21005711 </h1>
+        <h2>Flight List </h2>
+        <a class="btn btn-success" th:href="@{/flight/add-flight}">Thêm mới</a>
+
+        <!-- Search Form -->
+        <div class="row mb-3">
+            <div class="col-md-6 offset-md-6">
+                <form method="get" th:action="@{/flight/search}" class="input-group">
+                   <input type="text" name="keyword" class="form-control" placeholder="Search flight..." th:value="${keyword}" />
+                   <button type="submit" class="btn btn-secondary">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Display search results or all albums -->
+        <div th:if="${#lists.isEmpty(fl)}">
+            <div class="alert alert-warning" role="alert">
+                No flight found for the keyword: <strong th:text="${keyword}"></strong>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Airplane Name</th>
+                    <th>Departure Airport</th>
+                    <th>Arrival Airport</th>
+                    <th>Departure Date</th>
+                    <th>Arrival Date</th>
+                    <th>Seat Fare</th>
+                    <th>Flight Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Thymeleaf loop to display albums -->
+                <tr th:each="flight : ${fl}">
+                    <td th:text="${flight.id}"></td>
+                    <td th:text="${flight.airplaneName}"></td>
+                    <td th:text="${flight.departureAirport}"></td>
+                    <td th:text="${flight.arrivalAirport}"></td>
+                    <td th:text="${flight.departureDateFormatted}"></td>
+                    <td th:text="${flight.arrivalDateFormatted}"></td>
+                    <td th:text="${flight.formattedSeatFare}"></td>
+                    <td th:text="${flight.flightStatusText}"></td>
+                    <td>
+                        <a th:href="@{/flight/edit-flight/{id}(id=${flight.id})}" class="btn btn-info btn-sm">Chỉnh sửa</a>
+                        <a th:href="@{/flight/delete/{id}(id=${flight.id})}" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Bạn có chắc chắn xóa không?');">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

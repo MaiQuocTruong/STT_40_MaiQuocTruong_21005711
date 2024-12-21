@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AddFlight</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        h2 {
+            font-weight: bold;
+            color: '#ccc';
+            text-align: center;
+        }
+        .footer {
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>STT40 - MaiQuocTruong - 21005711 </h1>
+        <h2 >Add New Flight</h2>
+        
+        <div th:if="${errorMessage != null}" class="alert alert-danger">
+            <strong>Error:</strong> <span th:text="${errorMessage}"></span>
+        </div>
+        
+        <!-- Form thêm sản phẩm -->
+        <form th:action="@{/flight/save}" th:object="${addNewFlight}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="airplaneName">Airplane name:</label>
+                <input type="text" class="form-control" id="airplaneName" th:field="*{airplaneName}" placeholder="Enter airplane name">
+                <div th:if="${#fields.hasErrors('airplaneName')}" class="text-danger">
+                    <span th:errors="*{airplaneName}"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="departureAirport">Departure airport:</label>
+                <input type="text" class="form-control" id="departureAirport" th:field="*{departureAirport}" placeholder="Enter departure airport">
+                <div th:if="${#fields.hasErrors('departureAirport')}" class="text-danger">
+                    <span th:errors="*{departureAirport}"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="arrivalAirport">Arrival airport:</label>
+                <input type="text" class="form-control" id="arrivalAirport" th:field="*{arrivalAirport}" placeholder="Enter arrival airport">
+                <div th:if="${#fields.hasErrors('arrivalAirport')}" class="text-danger">
+                    <span th:errors="*{arrivalAirport}"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="departureDate">Departure date:</label>
+                <input type="date" class="form-control" id="departureDate" th:field="*{departureDate}">
+                <div th:if="${#fields.hasErrors('departureDate')}" class="text-danger">
+                    <span th:errors="*{departureDate}"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="arrivalDate">Arrival date:</label>
+                <input type="date" class="form-control" id="arrivalDate" th:field="*{arrivalDate}">
+                <div th:if="${#fields.hasErrors('arrivalDate')}" class="text-danger">
+                    <span th:errors="*{arrivalDate}"></span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="seatFare">Seat fare:</label>
+                <input type="number" class="form-control" id="seatFare" th:field="*{seatFare}">
+                <div th:if="${#fields.hasErrors('seatFare')}" class="text-danger">
+                    <span th:errors="*{seatFare}"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="flightStatus">Flight Status</label>
+                <select class="form-control" id="flightStatus" th:field="*{flightStatus}" required>
+                    <option value="true">New</option>
+                    <option value="false">Scheduled</option>
+                </select>
+            </div>
+
+            <div class="footer">
+                <a href="/flight" class="btn btn-secondary">Back</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
